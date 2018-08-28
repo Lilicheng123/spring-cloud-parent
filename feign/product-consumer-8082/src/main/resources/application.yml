@@ -1,0 +1,26 @@
+server:
+  port: 8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 9
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: product-consumer-8082
+
+info:
+  app:
+    name: "product-consumer-8082"
+    description: "product-consumer-8082程序"
+    version: "0.0.1"

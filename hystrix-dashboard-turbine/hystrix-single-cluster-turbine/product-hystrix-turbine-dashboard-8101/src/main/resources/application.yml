@@ -1,0 +1,37 @@
+server:
+  port: 8101
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: product-hystrix-turbine-dashboard-8101
+
+logging:
+  level:
+    org.hibernate : info
+    org.hibernate.type.descriptor.sql.BasicBinder : trace
+    org.hibernate.type.descriptor.sql.BasicExtraator : trace
+
+info:
+  app:
+    name: "product-hystrix-turbine-dashboard-8101"
+    description: "product-hystrix-turbine-dashboard-8101程序"
+    version: "0.0.1"
+
+turbine:
+  app-config: product-consumer
+  aggregator:
+    cluster-config: PRODUCT
+  combine-host-port: true
+  cluster-name-expression: metadata['cluster']

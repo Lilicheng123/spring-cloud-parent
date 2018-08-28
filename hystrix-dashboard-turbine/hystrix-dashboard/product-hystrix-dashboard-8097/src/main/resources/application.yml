@@ -1,0 +1,30 @@
+server:
+  port: 8097
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: product-hystrix-dashboard-8097
+
+logging:
+  level:
+    org.hibernate : info
+    org.hibernate.type.descriptor.sql.BasicBinder : trace
+    org.hibernate.type.descriptor.sql.BasicExtraator : trace
+
+info:
+  app:
+    name: "product-hystrix-dashboard-8096"
+    description: "product-hystrix-dashboard-8096程序"
+    version: "0.0.1"

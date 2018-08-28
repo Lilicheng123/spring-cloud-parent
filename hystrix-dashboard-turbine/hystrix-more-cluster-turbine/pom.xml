@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>hystrix-dashboard-turbine</artifactId>
+        <groupId>com.huan.springcloud</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>hystrix-more-cluster-turbine</artifactId>
+
+    <name>hystrix-more-cluster-turbine</name>
+    <url>http://www.example.com</url>
+
+    <modules>
+        <module>product-consumer-8102</module>
+        <module>product-consumer-8103</module>
+        <module>order-consumer-8104</module>
+        <module>product-provider-8105</module>
+        <module>product-hystrix-turbine-dashboard-8106</module>
+    </modules>
+
+</project>

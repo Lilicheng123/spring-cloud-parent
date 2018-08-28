@@ -1,0 +1,41 @@
+server:
+  port: 8106
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 9
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: order-consumer
+
+
+info:
+  app:
+    name: "product-consumer-8106"
+    description: "product-consumer-8106程序"
+    version: "0.0.1"
+
+# 配置日志
+logging:
+  level:
+    com.huan.study.feign : debug
+
+# feign和hystrix的配置
+feign:
+  hystrix:
+    enabled: true # 启用hystrix
+  client:
+      config:
+        default:
+          loggerLevel: full # feign的日志级别

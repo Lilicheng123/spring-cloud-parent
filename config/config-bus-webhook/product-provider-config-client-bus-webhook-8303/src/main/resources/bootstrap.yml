@@ -1,0 +1,36 @@
+server:
+  port: 8303
+
+spring:
+  application:
+      name: product-provider-config-client-bus-webhook
+  cloud:
+    config:
+      discovery:
+        enabled: true             # true 表示启用配置服务器发现
+        service-id: config-bus-webhook # config server 在eureka server 上的应用名
+      label: master       # git 的分支名称
+#      uri:  # config server 的地址，当 config server 没有注册到eureka上时需要用到这个
+      name: product-provider-config-client-bus-webhook # 用于获取远程属性的应用程序名称,默认就是 spring.application.name的值
+      fail-fast: true # 快速失败，如果有些时候服务连接不上配置服务器，希望这个服务快速失败，那么可以将fail-fast这个参数设置成true
+  rabbitmq: # 可以放到远程 git 上进行配置
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+security:
+  user:
+    name: root
+    password: admin
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+
+

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: eureka-server-ha
+
+server:
+  port: 8765
+  tomcat:
+    uri-encoding: utf-8
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@peer2:8764/eureka/ # 自身作为客户端注册到另外一个eureka server 上,如果有多个,中间以逗号分隔
+  instance:
+    prefer-ip-address: false
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    hostname: peer1
+
+security:
+  basic:
+    enabled: true # 开启basic认证
+  user:
+    name: root # 用户名
+    password: admin # 密码

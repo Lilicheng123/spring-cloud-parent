@@ -1,0 +1,39 @@
+server:
+  port: 8105
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: product-provider
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: true
+  datasource:
+    platform: h2
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+
+logging:
+  level:
+    org.hibernate : info
+    org.hibernate.type.descriptor.sql.BasicBinder : trace
+    org.hibernate.type.descriptor.sql.BasicExtraator : trace
+
+info:
+  app:
+    name: "product-provider-8105"
+    description: "product-provider-8105程序"
+    version: "0.0.1"

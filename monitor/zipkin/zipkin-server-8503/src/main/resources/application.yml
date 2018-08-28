@@ -1,0 +1,42 @@
+server:
+  port: 8503
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: zipkin-server-8503
+  sleuth:
+    enabled: false # 表示当前程序不使用 sleuth
+
+zipkin:
+  storage:
+    type: mysql #表示zipkin数据存储方式是mysql
+    mysql:
+      host: localhost
+      port: 3306
+      db: zipkin
+      username: root
+      password: w123456
+
+logging:
+  level:
+    org.hibernate : info
+    org.hibernate.type.descriptor.sql.BasicBinder : trace
+    org.hibernate.type.descriptor.sql.BasicExtraator : trace
+
+info:
+  app:
+    name: "zipkin-server-8503"
+    description: "zipkin-server-8503程序"
+    version: "0.0.1"

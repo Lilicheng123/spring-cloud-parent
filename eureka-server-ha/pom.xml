@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.huan.study.eureka.ha</groupId>
+    <artifactId>eureka-server-ha</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>eureka-server-ha-8764</module>
+        <module>eureka-server-ha-8765</module>
+        <module>eureka-client-8766</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <name>eureka-server-ha</name>
+    <description>eureka server 的高可用</description>
+
+    <parent>
+        <groupId>com.huan.springcloud</groupId>
+        <artifactId>spring-cloud-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+</project>

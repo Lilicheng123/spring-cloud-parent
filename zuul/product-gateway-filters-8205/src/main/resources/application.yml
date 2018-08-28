@@ -1,0 +1,66 @@
+server:
+  port: 8205
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 9
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: product-gateway-filters-8205
+
+info:
+  app:
+    name: "product-gateway-filters-8205"
+    description: "product-gateway-filters-8205程序"
+    version: "0.0.1"
+
+management:
+  security:
+    enabled: false # 否则 /routes 端点无法访问
+
+# 服务网关配置
+zuul:
+  ignored-services: "*" # 忽略所有的微服务
+  routes:
+    product-route-name:
+      path: /product/**
+      serviceId : product-provider
+    product-consumer-8201: /product-consumer/**
+#  SendErrorFilter:  # 过滤器的 SimpleClassName
+#    error:
+#      disable: true
+
+# 配置 zuul 网关的超时
+ribbon:  # ribbon 的超时
+  ReadTimeout:6000
+  ConnectTimeout:6000
+  MaxAutoRetries:1
+  MaxAutoRetriesNextServer:1
+
+hystrix:  # 配置 hystrix 的超时
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 48000  # 默认计算公式 (ribbon.ConnectTimeout + ribbon.ReadTimeout) * (ribbon.MaxAutoRetries + 1) * (ribbon.MaxAutoRetriesNextServer + 1)，当配置了后 hystrix 的超时以这个配置的为准，而不会使用默认的公式进行计算
+
+#zuul:
+#  host:
+#    connect-timeout-millis: 2000  # 这2个是配置当不是zuul 中不是使用 serviceId 而是使用 url 进行访问的时候的超时配置，这个不清楚。
+#    socket-timeout-millis: 10000
+
+
+
+

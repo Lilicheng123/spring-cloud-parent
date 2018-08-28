@@ -1,0 +1,67 @@
+server:
+  port: 8089
+  compression:
+    enabled: true # 启用压缩
+    mime-types: ["text/html", "text/xml", "text/plain", "text/css", "text/javascript", "application/javascript", "application/xml", "application/json"]
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 9
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: product-consumer-8089
+
+
+info:
+  app:
+    name: "product-consumer-8089"
+    description: "product-consumer-8089程序"
+    version: "0.0.1"
+
+# 配置日志
+logging:
+  level:
+    com.huan.study.feign : debug # 将自定义的这个feign包的日志级别改成debug级别
+
+# 配置全局的超时时间
+ribbon:
+    ReadTimeout: 60000
+    ConnectTimeout: 10000
+
+# 配置对请求的内容的压缩,有了上面spring boot的压缩，此处feign的压缩可以不用
+feign:
+  compression:
+    request:
+      enabled: true
+      mime-types: ["text/xml", "application/xml", "application/json"]
+      min-request-size: 512
+    response:
+      enabled: true
+  client:
+      config:
+        default:   # key 为default时表示的是全局配置
+          loggerLevel: basic
+        product-provider-01: # 为具体的服务提供者的spring.application.name的值，表示单独为这个工程配置
+          loggerLevel: full
+
+
+
+
+
+
+
+
+
+
+

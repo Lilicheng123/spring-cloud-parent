@@ -1,0 +1,51 @@
+server:
+  port: 8402
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@192.168.100.168:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    metadata-map:
+      management.context-path: /manager
+      user.name: root # 用户名（登录当前这个系统的用户名）
+      user.password: admin # 密码（登录当前这个系统的密码）
+
+security:
+  user:
+    name: root
+    password: admin
+
+management:
+  security:
+    enabled: false
+  port: 2222
+  context-path: /manager
+
+spring:
+  application:
+    name: client-product-provider-8402
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: true
+  datasource:
+    platform: h2
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+
+logging:
+  level:
+    org.hibernate : info
+    org.hibernate.type.descriptor.sql.BasicBinder : trace
+    org.hibernate.type.descriptor.sql.BasicExtraator : trace
+  path: logs/8402
+
+info:
+  app:
+    name: "client-product-provider-8402"
+    description: "client-product-provider-8402程序"
+    version: "0.0.1"

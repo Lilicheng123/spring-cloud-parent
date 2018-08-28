@@ -1,0 +1,51 @@
+server:
+  port: 8305
+
+security:
+  user:
+    name: root
+    password: admin
+  ignored: /encrypt/status,/encrypt/**,/decrypt/**  # 由于引入了spring security 所以需要将这个加密的端点放行
+
+spring:
+  application:
+    name: config-bus-webhook
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/flyingDream/spring-cloud-config-server.git # git 仓库的地址(公开的仓库，不用下方的用户名和密码，私有的才要用户名和 密码)
+          basedir: ./local-config-dir # 本地 git config 配置存放的目录
+          username: xxxxxxxxxx@qq.com # 远程 git 仓库的用户名
+          password: xxxxxxxxxx        # 远程 git 仓库的密码
+          clone-on-start: true        # true 表示程序启动的时候就将远程git 仓库的配置克隆到本地
+          timeout: 15                 # 连接远程 git 的超时时间，单位是秒
+          search-paths: products      # 查找路径，假设有一个路径是在 products 目录下，但是这个地方不配置 products ,那么访问的时候就访问不到 products 目录下的内容
+        encrypt:
+          enabled: true               # 在发送给客户端之前启用对环境属性的解密
+  rabbitmq: # 可以放到远程 git 上进行配置
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+encrypt:
+  key: abcdefg #对称加密的密钥, 这个属性需要配置到 bootstrap.yml 配置文件中，否则不会生效2
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+
+info:
+  app:
+    name: "config-server-8305"
+    description: "config-server-8305程序"
+    version: "0.0.1"
+management:
+  security:
+    enabled: false
+

@@ -1,0 +1,35 @@
+server:
+  port: 8207
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 9
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: product-gateway-aggregation-swagger2-8207
+
+info:
+  app:
+    name: "product-gateway-aggregation-swagger2-8207"
+    description: "product-gateway-aggregation-swagger2-8207聚合swagger2文档"
+    version: "0.0.1"
+
+management:
+  security:
+    enabled: false # 否则 /routes 端点无法访问
+
+
+
+
+

@@ -1,0 +1,24 @@
+server:
+  port: 8766
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@peer2:8764/eureka/,http://${security.user.name}:${security.user.password}@peer1:8765/eureka/   #多个eureka server中间以英文的逗号隔开
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+
+security:
+  user:
+    name: root
+    password: admin
+spring:
+  application:
+    name: eureka-client-8766
+
+info:
+  app:
+    name: "eureka-client-8766"
+    description: "eureka-client-8766程序"
+    version: "0.0.1"

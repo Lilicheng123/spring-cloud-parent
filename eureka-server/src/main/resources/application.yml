@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: eureka-server
+
+
+server:
+  port: 8761
+  tomcat:
+    uri-encoding: utf-8
+eureka:
+  client:
+    register-with-eureka: false # 由于eureka即可以作为服务端也可以作为客户端，此处是作为服务器段，因此这个参数需要设置成false: 即不作为一个客户端注册到服务注册中心
+    fetch-registry: false # true:表示作为一个客户端中eureka server 服务端获取服务注册信息,此处作为一个服务端因此需要设置成 false
+    service-url:
+      defaultZone : http://${security.user.name}:${security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/
+  instance:
+    hostname: localhost
+  server:
+    # 租约到期时间，此值不可过小，开发环境小点没有事，默认为 90秒
+    enable-self-preservation: false
+    # 清理无效节点的时间间隔，默认是60s,此处修改成10s
+    eviction-interval-timer-in-ms: 10000
+
+security:
+  basic:
+    enabled: true # 开启basic认证
+  user:
+    name: root # 用户名
+    password: admin # 密码

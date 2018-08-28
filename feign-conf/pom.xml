@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.huan.study.feign-conf</groupId>
+    <artifactId>feign-conf</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>product-provider-8085</module>
+        <module>product-provider-8086</module>
+        <module>product-provider-8087</module>
+        <module>product-provider-8088</module>
+        <module>product-consumer-8089</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <name>feign-conf</name>
+    <description>feign的各种配置测试</description>
+
+    <parent>
+        <groupId>com.huan.springcloud</groupId>
+        <artifactId>spring-cloud-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
